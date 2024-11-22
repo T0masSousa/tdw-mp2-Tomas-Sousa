@@ -50,8 +50,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm install
-        working-directory: ./mp2_tomas_sousa
 
       - name: Lint
         run: npm run lint
