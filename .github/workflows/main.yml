@@ -64,6 +64,14 @@ jobs:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
 
+      - name: Cache da CLI da Vercel
+        uses: actions/cache@v4
+        with:
+          path: ~/.vercel
+          key: ${{ runner.os }}-vercel-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vercel-
+
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
         working-directory: ./mp2_tomas_sousa
@@ -92,6 +100,14 @@ jobs:
     steps:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
+
+      - name: Cache da CLI da Vercel
+        uses: actions/cache@v4
+        with:
+          path: ~/.vercel
+          key: ${{ runner.os }}-vercel-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vercel-
 
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
