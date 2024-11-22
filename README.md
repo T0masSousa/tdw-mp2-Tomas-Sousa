@@ -24,12 +24,12 @@ pnpm dev
 
 ### Frontend Framework
 
-- **[React]([https://nextjs.org/](https://react.dev/))**
+- **[React](https://nextjs.org/](https://react.dev/))**
 
 ### Development tools
 
 - **[ESLint](https://eslint.org/)**
-- **[Javascript]**
+- **[Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)**
 - **[Prettier](https://prettier.io/)**
 - **[Jest](https://jestjs.io/)**
 - **[Reduxjs](https://redux.js.org/)**
