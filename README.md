@@ -1,4 +1,4 @@
-# Miniprojeto TDW Tomás Sousa
+# Miniprojeto#2 TDW Tomás Sousa
 
 ## 🖥️ Pipeline Status
 ![Pipeline Code Coverage Test](https://github.com/T0masSousa/tdw-mp2-Tomas-Sousa/actions/workflows/main.yml/badge.svg)
