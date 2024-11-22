@@ -23,13 +23,12 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-      - name: Instalar Dependencias
-        run: npm install
-        working-directory: mp2_tomas_sousa
+          cache-dependency-path: subdir/package-lock.json
+      - run: npm ci
+      - run: npm test
 
   trabalhos-paralelos:
     name: Flows Simultaneos
-    needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
