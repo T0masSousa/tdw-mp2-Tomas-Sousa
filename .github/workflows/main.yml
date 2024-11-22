@@ -51,6 +51,7 @@ jobs:
 
       - name: Coverage
         run: npm run coverage
+        working-directory: ./mp2_tomas_sousa
 
   deploy-vercel-preview:
     name: Deploy do Vercel em Preview
