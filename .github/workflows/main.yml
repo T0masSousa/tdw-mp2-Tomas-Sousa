@@ -54,6 +54,9 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Coverage
+        run: npm run coverage
+
   deploy-vercel-preview:
     name: Deploy do Vercel em Preview
     env:

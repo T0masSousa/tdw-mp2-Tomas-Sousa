@@ -19,7 +19,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "coverage": "jest --coverage",
+    "lint": "eslint .",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:update-snapshots": "jest --updateSnapshot",
+    "prettier": "prettier --write .",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
