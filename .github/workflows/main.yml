@@ -12,29 +12,8 @@ on:
 
 # Jobs a ser executados
 jobs:
-  install-dependencies:
-    name: Instalar Dependencias
-    runs-on: ubuntu-latest
-    steps:
-      - name: Analisar Repositorio
-        uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Cache dos modulos do NPM
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - run: npm install
-        working-directory: ./mp2_tomas_sousa
-
   trabalhos-paralelos:
     name: Flows Simultaneos
-    needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +29,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - run: npm install
+        working-directory: ./mp2_tomas_sousa
 
       - name: Lint
         run: npm run lint
