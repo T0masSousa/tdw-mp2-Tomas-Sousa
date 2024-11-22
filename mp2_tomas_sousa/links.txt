@@ -1,0 +1,7 @@
+https://eslint.org/docs/latest/use/getting-started
+
+https://prettier.io/docs/en/install
+
+https://styled-components.com/docs/basics#installation
+
+https://redux.js.org/introduction/getting-started
