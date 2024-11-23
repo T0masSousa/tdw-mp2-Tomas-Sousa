@@ -9,7 +9,7 @@ export const omdbSlice = createApi({
 
   // Request
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://www.omdbapi.com/',
+    baseUrl: 'https://www.omdbapi.com/',
   }),
   endpoints: (builder) => ({
     // PARA OS CARDS
