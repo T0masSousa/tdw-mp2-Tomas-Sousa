@@ -16,6 +16,7 @@ function App() {
 
   return (
     <div>
+      <h1>MP2 - Tomas Sousa </h1>
       <FiltersRequest onFilterChange={setFilters} />
       {filters.title !== '' && <ListResults filters={filters} />}
     </div>
