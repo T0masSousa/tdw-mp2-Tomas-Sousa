@@ -20,7 +20,6 @@ function App() {
   return (
     <Router>
       <div>
-        <h1>MP2 - Tomas Sousa </h1>
         <FiltersRequest onFilterChange={setFilters} />
         <Routes>
           {filters.title !== '' && (

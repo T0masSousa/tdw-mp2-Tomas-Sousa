@@ -40,19 +40,21 @@ export default function FiltersRequest({ onFilterChange }) {
     <>
       <p>{feedback}</p>
       <form>
-        <label>
-          Nome Filme
+        <label htmlFor="title">
+          Nome
           <input
             type="text"
+            id="title"
             value={title}
             onChange={(e) => settitle(e.target.value)}
-            placeholder="Nome do Filme"
+            placeholder="Nome"
           />
         </label>
         <br />
-        <label>
+        <label htmlFor="year">
           Ano de Lançamento
           <input
+            id="year"
             type="number"
             value={year}
             onChange={(e) => setYear(e.target.value)}
@@ -60,9 +62,13 @@ export default function FiltersRequest({ onFilterChange }) {
           />
         </label>
         <br />
-        <label>
+        <label htmlFor="type">
           Tipo
-          <select value={type} onChange={(e) => setType(e.target.value)}>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
             <option value=""></option>
             <option value="movie">Movie</option>
             <option value="series">Serie</option>
@@ -70,9 +76,13 @@ export default function FiltersRequest({ onFilterChange }) {
           </select>
         </label>
         <br />
-        <label>
+        <label htmlFor="plot">
           Plot
-          <select value={plot} onChange={(e) => SetPlot(e.target.value)}>
+          <select
+            id="plot"
+            value={plot}
+            onChange={(e) => SetPlot(e.target.value)}
+          >
             <option value=""></option>
             <option value="short">Curto</option>
             <option value="full">Extenso</option>

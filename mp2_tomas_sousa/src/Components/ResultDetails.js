@@ -8,8 +8,6 @@ const ResultDetails = () => {
   //TÍTULO
   const { title } = useParams();
 
-  console.log(title);
-
   //INFO DA OMDB
   const {
     data: movieDetails,

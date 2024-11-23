@@ -88,8 +88,11 @@ export default function ListResults({ filters }) {
           <option value="episode">Episódios</option>
         </select>
       </div>
-      {sortedMovies?.map((movie) => (
-        <div key={movie.imdbID} style={{ margin: '10px', display: 'flex' }}>
+      {sortedMovies?.map((movie, index) => (
+        <div
+          key={movie.imdbID || index}
+          style={{ margin: '10px', display: 'flex' }}
+        >
           <img
             src={movie.Poster}
             alt={movie.Title}
