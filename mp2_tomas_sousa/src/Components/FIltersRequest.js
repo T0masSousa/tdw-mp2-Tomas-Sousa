@@ -9,6 +9,7 @@ export default function FiltersRequest({ onFilterChange }) {
   const [type, setType] = useState(''); //Opcional SERIE,FILME,EPISODIO
   const [plot, SetPlot] = useState('short'); //OPCIONAL PLOT CURTO OU EXTENSO (short or full)
 
+  //MENSAGEM
   const [feedback, setFeedback] = useState('');
 
   // FORM PARA PEDIDO
