@@ -4,8 +4,7 @@
 ![Pipeline Code Coverage Test](https://github.com/T0masSousa/tdw-mp2-Tomas-Sousa/actions/workflows/main.yml/badge.svg)
 
 ## ☂️ Code Coverage
-[![codecov](https://codecov.io/gh/T0masSousa/tdw-mp2-Tomas-Sousa/graph/badge.svg?token=9F7R2Pu9hL)](https://codecov.io/gh/T0masSousa/tdw-mp2-Tomas-Sousa)
-
+[![codecov](https://codecov.io/gh/T0masSousa/tdw-mp2-Tomas-Sousa/branch/main/graph/badge.svg?token=9F7R2Pu9hL)](https://codecov.io/gh/T0masSousa/tdw-mp2-Tomas-Sousa)
 ## 🚀 Deploy
 
 To Deploy The Project:
