@@ -1,5 +1,6 @@
 // Usestate
 import { useState } from 'react';
+import React from 'react';
 
 export default function FiltersRequest({ onFilterChange }) {
   // Pesquisa
