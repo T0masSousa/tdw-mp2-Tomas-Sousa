@@ -44,18 +44,18 @@ jobs:
         run: npm run prettier
         working-directory: ./mp2_tomas_sousa
 
-      - name: Enviar para o Codecov
-        uses: codecov/codecov-action@v4
+      - name: Coverage
+        run: npm run coverage
+        working-directory: ./mp2_tomas_sousa
+
+      - name: Upload dos Resultados para o Codecov
+        uses: codecov/codecov-action@v4 # Upload dos resultados para o Codecov
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }} # Token do Codecov
           files: ./mp2_tomas_sousa/coverage/coverage-final.json
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: true
-
-      - name: Coverage
-        run: npx run coverage
-        working-directory: ./mp2_tomas_sousa
 
   deploy-vercel-preview:
     name: Deploy do Vercel em Preview
