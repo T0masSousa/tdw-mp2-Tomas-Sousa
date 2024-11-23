@@ -1,6 +1,7 @@
 // Usa a QUERY
 import { useFetchMoviesQuery } from '../reduxStore/omdbSlice.js';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 // PAGE
 export default function ListResults({ filters }) {
@@ -20,14 +21,10 @@ export default function ListResults({ filters }) {
   const [typeFilter, setTypeFilter] = useState('');
   const [sortedMovies, setSortedMovies] = useState([]);
 
-  console.log(movies);
-
   // Reordenar Filmes
   useEffect(() => {
     //QUNADO HOUVER FILMES
     if (movies && movies.Search) {
-      console.log(movies);
-
       //FILMES
       let sortedMovies = [...movies.Search];
 
@@ -102,6 +99,7 @@ export default function ListResults({ filters }) {
             <h5>{movie.Title}</h5>
             <p>Release: {movie.Year}</p>
             <p>Type: {movie.Type}</p>
+            <Link to={`/film/${movie.Title}`}>Ver Detalhes</Link>
           </div>
         </div>
       ))}
