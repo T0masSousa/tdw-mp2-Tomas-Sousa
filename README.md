@@ -5,7 +5,6 @@
 
 ## ☂️ Code Coverage
 [![codecov](https://codecov.io/gh/T0masSousa/tdw-mp2-Tomas-Sousa/branch/main/graph/badge.svg?token=9F7R2Pu9hL)](https://codecov.io/gh/T0masSousa/tdw-mp2-Tomas-Sousa)
-
 ## 🚀 Deploy
 
 To Deploy The Project:
