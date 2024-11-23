@@ -50,7 +50,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Coverage
-        run: npm run coverage
+        run: npx run coverage
         working-directory: ./mp2_tomas_sousa
 
   deploy-vercel-preview:
