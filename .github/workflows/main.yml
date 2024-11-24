@@ -26,11 +26,13 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm # O que vai para cache
-          key: $${{ runner.os }}-node-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
+          key: $${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm install
+      - name: Instalar Modulos Cache Not Found
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm install
         working-directory: ./mp2_tomas_sousa
 
   lint:
