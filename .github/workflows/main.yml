@@ -17,23 +17,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
       - name: Cache dos modulos do NPM
-        id: Cache_Modules
+        id: cache-npm
         uses: actions/cache@v4
-        env:
-          cache-name: cache-modulos
         with:
-          path: node_modules # O que vai para cache
-          key: $${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
+          path: ~/.npm # O que vai para cache
+          key: $${{ runner.os }}-node-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-node-
 
-      - name: Instalar Modulos # Se não encontrar na cache vai instalar
-        if: steps.Cache_Modules.outputs.cache-hit != 'true'
-        run: npm install
+      - run: npm install
         working-directory: ./mp2_tomas_sousa
 
   lint:
@@ -49,19 +46,6 @@ jobs:
       - run: npm run lint
         working-directory: ./mp2_tomas_sousa
 
-  jest:
-    name: Jest
-    runs-on: ubuntu-latest
-    needs: nodes-e-cache
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - run: npm run test
-        working-directory: ./mp2_tomas_sousa
-
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
@@ -73,6 +57,19 @@ jobs:
         with:
           node-version: "22"
       - run: npm run prettier
+        working-directory: ./mp2_tomas_sousa
+
+  jest:
+    name: Jest
+    runs-on: ubuntu-latest
+    needs: nodes-e-cache
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up do Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm run test
         working-directory: ./mp2_tomas_sousa
 
   codecov:
