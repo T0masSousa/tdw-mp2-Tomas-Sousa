@@ -58,11 +58,11 @@ export default function ListResults({ filters }) {
   }, [movies, order, typeFilter]); //DEPENDE DAS ESCOLHAS DO UTILIZADOR E AINDA DA NOVA PESQUISA
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>A Carregar...</div>;
   }
 
   if (error) {
-    return <div>Error loading movies.</div>;
+    return <div>Erro a carregar filmes.</div>;
   }
 
   return (
@@ -89,24 +89,28 @@ export default function ListResults({ filters }) {
           <option value="game">Jogo</option>
         </select>
       </div>
-      {sortedMovies?.map((movie, index) => (
-        <div
-          key={movie.imdbID || index}
-          style={{ margin: '10px', display: 'flex' }}
-        >
-          <img
-            src={movie.Poster}
-            alt={movie.Title}
-            style={{ width: '150px' }}
-          />
-          <div>
-            <h5>{movie.Title}</h5>
-            <p>Release: {movie.Year}</p>
-            <p>Type: {movie.Type}</p>
-            <Link to={`/film/${movie.Title}`}>Ver Detalhes</Link>
+      {sortedMovies.length === 0 ? (
+        <div>Nenhum resultado desta categoria.</div>
+      ) : (
+        sortedMovies.map((movie, index) => (
+          <div
+            key={movie.imdbID || index}
+            style={{ margin: '10px', display: 'flex' }}
+          >
+            <img
+              src={movie.Poster}
+              alt={movie.Title}
+              style={{ width: '150px' }}
+            />
+            <div>
+              <h5>{movie.Title}</h5>
+              <p>Release: {movie.Year}</p>
+              <p>Type: {movie.Type}</p>
+              <Link to={`/film/${movie.Title}`}>Ver Detalhes</Link>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
     </>
   );
 }
