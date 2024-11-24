@@ -16,7 +16,7 @@ export const omdbSlice = createApi({
     fetchMovies: builder.query({
       // title by name (Required), year (optional), result type (movie, series, episode - OPTIONAL), data type returned JSON or XML, number of pages to return
       query: ({ title, year, type, plot }) =>
-        `?s=${title}&y=${year}&type=${type}&plot=${plot}&r=json&apikey=${apiKey}`,
+        `?s=${title}&y=${year}&plot=${plot}&r=json&apikey=${apiKey}`,
     }),
 
     // PARA OS DETALHES

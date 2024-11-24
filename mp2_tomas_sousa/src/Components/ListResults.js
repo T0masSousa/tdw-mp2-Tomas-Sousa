@@ -83,9 +83,10 @@ export default function ListResults({ filters }) {
           onChange={(e) => setTypeFilter(e.target.value)}
         >
           <option value="">Todos</option>
-          <option value="movie">Filmes</option>
-          <option value="series">Séries</option>
-          <option value="episode">Episódios</option>
+          <option value="movie">Filme</option>
+          <option value="series">Série</option>
+          <option value="episode">Episódio</option>
+          <option value="game">Jogo</option>
         </select>
       </div>
       {sortedMovies?.map((movie, index) => (

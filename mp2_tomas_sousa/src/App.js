@@ -1,31 +1,21 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './Components/Navbar.js';
 
-// CHAMAR O FORM
-import FiltersRequest from './Components/FIltersRequest.js';
-//CHAMA O LIST
-import ListResults from './Components/ListResults.js';
-//DETALHES
-import ResultDetails from './Components/ResultDetails.js';
+//PAGES
+import HomePage from './Pages/HomePage.js';
+import SearchPage from './Pages/SearchPage.js';
+import ResultDetailsPage from './Pages/ResultDetailsPage.js';
 
 function App() {
-  // FILTERS
-  const [filters, setFilters] = useState({
-    title: '',
-    year: '',
-    type: '',
-    plot: '',
-  });
-
   return (
     <Router>
       <div>
-        <FiltersRequest onFilterChange={setFilters} />
+        <Navbar />
         <Routes>
-          {filters.title !== '' && (
-            <Route path="/" element={<ListResults filters={filters} />} />
-          )}
-          <Route path="/film/:title" element={<ResultDetails />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/film/:title" element={<ResultDetailsPage />} />
         </Routes>
       </div>
     </Router>

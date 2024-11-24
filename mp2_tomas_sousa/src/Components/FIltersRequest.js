@@ -6,7 +6,6 @@ export default function FiltersRequest({ onFilterChange }) {
   // Pesquisa
   const [title, settitle] = useState(''); //Obrigatorio NOME FILME
   const [year, setYear] = useState(''); //Opcional ANO FILME
-  const [type, setType] = useState(''); //Opcional SERIE,FILME,EPISODIO
   const [plot, SetPlot] = useState('short'); //OPCIONAL PLOT CURTO OU EXTENSO (short or full)
 
   //MENSAGEM
@@ -28,7 +27,6 @@ export default function FiltersRequest({ onFilterChange }) {
       const filters = {
         title,
         year,
-        type,
         plot,
       };
 
@@ -53,7 +51,7 @@ export default function FiltersRequest({ onFilterChange }) {
         </label>
         <br />
         <label htmlFor="year">
-          Ano de Lançamento
+          Ano
           <input
             id="year"
             type="number"
@@ -63,20 +61,7 @@ export default function FiltersRequest({ onFilterChange }) {
           />
         </label>
         <br />
-        <label htmlFor="type">
-          Tipo
-          <select
-            id="type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value=""></option>
-            <option value="movie">Movie</option>
-            <option value="series">Serie</option>
-            <option value="episode">Episode</option>
-          </select>
-        </label>
-        <br />
+
         <label htmlFor="plot">
           Plot
           <select
