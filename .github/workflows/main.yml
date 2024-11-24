@@ -12,82 +12,45 @@ on:
 
 # Jobs a ser executados
 jobs:
-  nodes-e-cache:
+  cache-dependencias:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Node a Usar
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: "npm"
+          cache-dependency-path: package-lock.json
 
       - name: Cache dos modulos do NPM
-        id: cache-npm
         uses: actions/cache@v4
         with:
-          path: ~/.npm # O que vai para cache
+          path: | # O que vai para cache
+            ~/.npm
+            ~/.cache
           key: $${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Instalar Modulos Cache Not Found
-        if: steps.cache-npm.outputs.cache-hit != 'true'
-        run: npm install
-        working-directory: ./mp2_tomas_sousa
+      - name: Instalar Modulos
+        run: npm ci
 
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    needs: nodes-e-cache
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - run: npm run lint
-        working-directory: ./mp2_tomas_sousa
+      - name: Lint
+        run: npm run lint
 
-  prettier:
-    name: Prettier
-    runs-on: ubuntu-latest
-    needs: nodes-e-cache
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - run: npm run prettier
-        working-directory: ./mp2_tomas_sousa
+      - name: Prettier
+        run: npm run prettier
 
-  jest:
-    name: Jest
-    runs-on: ubuntu-latest
-    needs: nodes-e-cache
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - run: npm run test
-        working-directory: ./mp2_tomas_sousa
+      - name: Jest
+        run: npm run test
 
-  codecov:
-    name: Coverage
-    runs-on: ubuntu-latest
-    needs: jest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - run: npm run coverage
-        working-directory: ./mp2_tomas_sousa
+      - name: Coverage
+        run: npm run coverage
 
-      - name: Upload dos Resultados para o Codecov
+      - name: Upload CodeCov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -101,7 +64,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    needs: [lint, prettier, jest, codecov]
+    needs: [cache-dependencias]
     runs-on: ubuntu-latest
     steps:
       - name: Analisar Repositorio
