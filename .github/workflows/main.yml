@@ -12,8 +12,8 @@ on:
 
 # Jobs a ser executados
 jobs:
-  setup:
-    name: Setup
+  nodes-e-cache:
+    name: Nodes e Cache
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
       - name: Cache dos modulos do NPM
         uses: actions/cache@v4
         with:
@@ -34,7 +35,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    needs: setup
+    needs: nodes-e-cache
     steps:
       - uses: actions/checkout@v4
       - name: Set up do Node.js
@@ -44,23 +45,10 @@ jobs:
       - run: npm run lint
         working-directory: ./mp2_tomas_sousa
 
-  prettier:
-    name: Prettier
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - run: npm run prettier
-        working-directory: ./mp2_tomas_sousa
-
   jest:
     name: Jest
     runs-on: ubuntu-latest
-    needs: setup
+    needs: nodes-e-cache
     steps:
       - uses: actions/checkout@v4
       - name: Set up do Node.js
@@ -68,6 +56,19 @@ jobs:
         with:
           node-version: "22"
       - run: npm run test
+        working-directory: ./mp2_tomas_sousa
+
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    needs: nodes-e-cache
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up do Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm run prettier
         working-directory: ./mp2_tomas_sousa
 
   codecov:
@@ -96,22 +97,26 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    needs: [lint, prettier, codecov]
+    needs: [lint, prettier, jest, codecov]
     runs-on: ubuntu-latest
     steps:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
+
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
         working-directory: ./mp2_tomas_sousa
+
       - name: Pull Env Vercel
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
         working-directory: ./mp2_tomas_sousa
+
       - name: Build Vercel
         run: |
           vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
           vercel build --token=${{ secrets.VERCEL_ACCESS_TOKEN}}
         working-directory: ./mp2_tomas_sousa
+
       - name: Deploy Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
         working-directory: ./mp2_tomas_sousa
@@ -126,17 +131,21 @@ jobs:
     steps:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
+
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
         working-directory: ./mp2_tomas_sousa
+
       - name: Pull Env Vercel
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
         working-directory: ./mp2_tomas_sousa
+
       - name: Build Vercel
         run: |
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
           vercel build --prod --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
         working-directory: ./mp2_tomas_sousa
+
       - name: Deploy Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
         working-directory: ./mp2_tomas_sousa
