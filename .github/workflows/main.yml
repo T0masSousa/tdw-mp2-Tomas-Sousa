@@ -13,6 +13,7 @@ on:
 # Jobs a ser executados
 jobs:
   cache-e-steps:
+    name: Criar Cache e Executar Lint, Prettier, Jest e Codecov com Relatório
     runs-on: ubuntu-latest
 
     steps:

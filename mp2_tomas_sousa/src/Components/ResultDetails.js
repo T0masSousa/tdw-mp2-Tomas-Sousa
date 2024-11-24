@@ -23,13 +23,13 @@ const ResultDetails = () => {
   } = useFetchTrailerQuery(title);
 
   // CARREGAR
-  if (movieLoading || trailerLoading) return <div>Loading...</div>;
+  if (movieLoading || trailerLoading) return <div>A Carregar...</div>;
 
   //ERRO
-  if (movieError) return <div>Error loading movie details.</div>;
+  if (movieError) return <div>Erro a carregar detalhes.</div>;
 
   //ERRO YT
-  if (trailerError) return <div>Error loading trailer.</div>;
+  if (trailerError) return <div>Erro a carregar trailer.</div>;
 
   const trailer = trailerData?.items[0];
 
