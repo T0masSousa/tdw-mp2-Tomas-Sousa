@@ -13,23 +13,22 @@ on:
 # Jobs a ser executados
 jobs:
   nodes-e-cache:
-    name: Nodes e Cache
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up do Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
 
       - name: Cache dos modulos do NPM
+        id: Cache_Modules
         uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: node_modules # O que vai para cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - run: npm install
+
+      - name: Instalar Modulos # Se não encontrar na cache vai instalar
+        if: steps.Cache_Modules.outputs.cache-hit != 'true'
+        run: npm install
         working-directory: ./mp2_tomas_sousa
 
   lint:
@@ -83,6 +82,7 @@ jobs:
           node-version: "22"
       - run: npm run coverage
         working-directory: ./mp2_tomas_sousa
+
       - name: Upload dos Resultados para o Codecov
         uses: codecov/codecov-action@v4
         with:
