@@ -25,7 +25,7 @@ jobs:
         id: cache-npm
         uses: actions/cache@v4
         with:
-          path: ~/.npm # O que vai para cache
+          path: node_modules # O que vai para cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
           restore-keys: |
             ${{ runner.os }}-node-
@@ -34,6 +34,12 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm install
         working-directory: ./mp2_tomas_sousa
+
+      - name: Fazer upload do diretório para reutilização
+        uses: actions/upload-artifact@v4
+        with:
+          name: node_modules
+          path: ./mp2_tomas_sousa/node_modules
 
   lint:
     name: Lint
@@ -46,13 +52,11 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Restore npm cache
-        uses: actions/cache@v4
+      - name: Restaurar o node_modules
+        uses: actions/download-artifact@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          name: node_modules
+          path: ./mp2_tomas_sousa/node_modules
 
       - run: npm run lint
         working-directory: ./mp2_tomas_sousa
@@ -68,13 +72,11 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Restore npm cache
-        uses: actions/cache@v4
+      - name: Restaurar o node_modules
+        uses: actions/download-artifact@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          name: node_modules
+          path: ./mp2_tomas_sousa/node_modules
 
       - run: npm run prettier
         working-directory: ./mp2_tomas_sousa
@@ -90,13 +92,11 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Restore npm cache
-        uses: actions/cache@v4
+      - name: Restaurar o node_modules
+        uses: actions/download-artifact@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          name: node_modules
+          path: ./mp2_tomas_sousa/node_modules
 
       - run: npm run test
         working-directory: ./mp2_tomas_sousa
@@ -112,13 +112,11 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Restore npm cache
-        uses: actions/cache@v4
+      - name: Restaurar o node_modules
+        uses: actions/download-artifact@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          name: node_modules
+          path: ./mp2_tomas_sousa/node_modules
 
       - run: npm run coverage
         working-directory: ./mp2_tomas_sousa
