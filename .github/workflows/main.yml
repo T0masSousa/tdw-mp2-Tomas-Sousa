@@ -12,9 +12,12 @@ on:
 
 # Jobs a ser executados
 jobs:
-  trabalhos-paralelos:
-    name: Flows Simultaneos
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: [lint, prettier, jest, codecov]
     steps:
       - uses: actions/checkout@v4
       - name: Set up do Node.js
@@ -32,26 +35,15 @@ jobs:
       - run: npm install
         working-directory: ./mp2_tomas_sousa
 
-      - name: Lint
-        run: npm run lint
-        working-directory: ./mp2_tomas_sousa
-
-      - name: Jest
-        run: npm run test
-        working-directory: ./mp2_tomas_sousa
-
-      - name: Prettier
-        run: npm run prettier
-        working-directory: ./mp2_tomas_sousa
-
-      - name: Coverage
-        run: npm run coverage
+      - name: Run ${{ matrix.task }}
+        run: npm run ${{ matrix.task }}
         working-directory: ./mp2_tomas_sousa
 
       - name: Upload dos Resultados para o Codecov
-        uses: codecov/codecov-action@v4 # Upload dos resultados para o Codecov
+        if: matrix.task == 'codecov'
+        uses: codecov/codecov-action@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # Token do Codecov
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./mp2_tomas_sousa/coverage/coverage-final.json
           flags: unittests
           name: codecov-umbrella
@@ -62,7 +54,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    needs: trabalhos-paralelos
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Analisar Repositorio
