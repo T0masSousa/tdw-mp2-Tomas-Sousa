@@ -48,9 +48,9 @@ export default function FiltersRequest({ onFilterChange }) {
       <CardSearch>
         <HeadingSearch>Pesquisa</HeadingSearch>
         <ParagraphSearch>
-          Para pesquisar tens de introduzir o <b>nome do filme</b> e,
-          opcionalmente, poderás contribuir com mais informações. No final,
-          clica em "procurar".
+          Para pesquisar tens de introduzir o{' '}
+          <b>nome do conteúdo que procuras</b> e, opcionalmente, poderás
+          contribuir com mais informações. No final, clica em "procurar".
         </ParagraphSearch>
         <ErrorSearch>{feedback}</ErrorSearch>
         <FormSearch>
