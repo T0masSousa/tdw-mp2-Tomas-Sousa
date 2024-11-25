@@ -51,7 +51,7 @@ jobs:
         run: npm run prettier
         working-directory: ./mp2_tomas_sousa
 
-      - name: jest
+      - name: Jest
         run: npm run test
         working-directory: ./mp2_tomas_sousa
 
