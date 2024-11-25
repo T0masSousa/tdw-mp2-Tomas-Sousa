@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: | # O que vai para cache
-            node_modules 
+            ./mp2_tomas_sousa/node_modules 
             ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
           restore-keys: |
@@ -36,6 +36,11 @@ jobs:
       - name: Instalar Modulos If Cache Not Found
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm install
+        working-directory: ./mp2_tomas_sousa
+
+      - name: Instalar Modulos Cache Hit
+        if: steps.cache-npm.outputs.cache-hit == 'true'
+        run: npm ci
         working-directory: ./mp2_tomas_sousa
 
       - name: Lint
