@@ -1,10 +1,32 @@
 import React from 'react';
 
+//STYLES
+import {
+  HomeContainer,
+  HomeTitle,
+  HomeParagraph,
+  HomeSectionTitle,
+  HomeSectionTitle2,
+  HomeList,
+  HomeListItem,
+  HomeLink,
+  ReactIcon,
+  EsLintIcon,
+  JavaScriptIcon,
+  PrettierIcon,
+  JestIcon,
+  ReduxIcon,
+  StyledComponentsIcon,
+  GithubIcon,
+  YoutubeIcon,
+  OMDBIcon,
+} from '../Styles/GlobalStyles.js';
+
 const HomeStatic = () => {
   return (
-    <div>
-      <h1>Movie Time</h1>
-      <p>
+    <HomeContainer>
+      <HomeTitle>Movie Time</HomeTitle>
+      <HomeParagraph>
         O Movie Time é uma aplicação web que permite aos utilizadores pesquisar
         informações sobre os seus filmes favoritos de forma rápida e intuitiva.
         Esta aplicação utiliza a API OMDB (Open Movie Database) para obter dados
@@ -16,99 +38,130 @@ const HomeStatic = () => {
         deste projeto é oferecer aos utilizadores uma forma prática de explorar
         e descobrir novos filmes, além de poderem assistir aos trailers
         diretamente na plataforma.
-      </p>
-      <h2>🛠️ Tech Stack</h2>
-      <h3>Framework Frontend</h3>
-      <ul>
-        <li>
-          <a
+      </HomeParagraph>
+      <HomeSectionTitle>Tech Stack</HomeSectionTitle>
+      <HomeSectionTitle2>Framework Frontend</HomeSectionTitle2>
+      <HomeList>
+        <HomeListItem>
+          <HomeLink
             href="https://react.dev/"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <ReactIcon />
             React
-          </a>
-        </li>
-      </ul>
-      <h3>Ferramentas Desenvolvimento</h3>
-      <ul>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+      </HomeList>
+      <HomeSectionTitle2>Ferramentas Desenvolvimento</HomeSectionTitle2>
+      <HomeList>
+        <HomeListItem>
+          <HomeLink
             href="https://eslint.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            ESLint
-          </a>
-        </li>
-        <li>
-          <a
+            <EsLintIcon />
+            EsLint
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
             href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
             target="_blank"
-            rel="noopener noreferrer"
           >
+            <JavaScriptIcon />
             Javascript
-          </a>
-        </li>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
             href="https://prettier.io/"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <PrettierIcon />
             Prettier
-          </a>
-        </li>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
             href="https://jestjs.io/"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <JestIcon />
             Jest
-          </a>
-        </li>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
             href="https://redux.js.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <ReduxIcon />
             Reduxjs
-          </a>
-        </li>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
             href="https://redux-toolkit.js.org/rtk-query/overview"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <ReduxIcon />
             RTKQuery
-          </a>
-        </li>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
             href="https://styled-components.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <StyledComponentsIcon />
             Styled Components
-          </a>
-        </li>
-      </ul>
-      <h2>👥 Autor</h2>
-      <ul>
-        <li>
-          <a
+          </HomeLink>
+        </HomeListItem>
+      </HomeList>
+      <HomeSectionTitle2>APIs Utilizadas</HomeSectionTitle2>
+      <HomeList>
+        <HomeListItem>
+          <HomeLink
+            href="https://www.omdbapi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <OMDBIcon />
+            OMDB - Open Movie Database
+          </HomeLink>
+        </HomeListItem>
+        <HomeListItem>
+          <HomeLink
+            href="https://developers.google.com/youtube/v3?hl=pt-br"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <YoutubeIcon />
+            Youtube Data
+          </HomeLink>
+        </HomeListItem>
+      </HomeList>
+      <HomeSectionTitle>Autor</HomeSectionTitle>
+      <HomeList>
+        <HomeListItem>
+          <HomeLink
             href="https://github.com/T0masSousa"
             target="_blank"
             rel="noopener noreferrer"
           >
+            <GithubIcon />
             @T0masSousa
-          </a>
-        </li>
-      </ul>
-    </div>
+          </HomeLink>
+        </HomeListItem>
+      </HomeList>
+    </HomeContainer>
   );
 };
 

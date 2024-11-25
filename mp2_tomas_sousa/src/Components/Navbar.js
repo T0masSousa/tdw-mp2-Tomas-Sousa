@@ -1,18 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {
+  NavbarStyled,
+  NavbarItemMovie,
+  NavbarItemSearch,
+} from '../Styles/GlobalStyles.js';
+import { MovieIcon } from '../Styles/GlobalStyles.js';
+import { SearchIcon } from '../Styles/GlobalStyles.js';
 
 const Navbar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Movie Time</Link>
-        </li>
-        <li>
-          <Link to="/search">Pesquisar</Link>
-        </li>
-      </ul>
-    </nav>
+    <NavbarStyled>
+      <NavbarItemMovie to="/">
+        <MovieIcon />
+        Movie Time
+      </NavbarItemMovie>
+      <NavbarItemSearch to="/search">
+        <SearchIcon />
+        Pesquisar
+      </NavbarItemSearch>
+    </NavbarStyled>
   );
 };
 
