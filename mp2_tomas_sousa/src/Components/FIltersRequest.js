@@ -33,7 +33,7 @@ export default function FiltersRequest() {
     //SE TENTAR PESQUISAR SEM NOME || É LIMITAÇÃO DA API
     if (!title) {
       // FALTA NOME
-      setFeedback('Por favor, insire o nome do conteúdo que procuras.');
+      setFeedback('Por favor, identifica o conteúdo que procuras.');
     } else {
       // VAI PROCURAR
       setFeedback('');
@@ -55,9 +55,9 @@ export default function FiltersRequest() {
       <CardSearch>
         <HeadingSearch>Pesquisa</HeadingSearch>
         <ParagraphSearch>
-          Para pesquisar tens de introduzir o{' '}
-          <b>nome do conteúdo que procuras</b> e, opcionalmente, poderás
-          contribuir com mais informações. No final, clica em "<b>procurar</b>".
+          Para pesquisar tens de <b>identificar o conteúdo</b> e, opcionalmente,
+          poderás contribuir com mais informações. No final, clica no botão
+          abaixo.
         </ParagraphSearch>
         <ErrorSearch>{feedback}</ErrorSearch>
         <FormSearch>

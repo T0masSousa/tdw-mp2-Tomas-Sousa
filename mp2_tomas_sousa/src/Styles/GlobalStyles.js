@@ -402,6 +402,7 @@ export const FormSearch = styled.form`
     cursor: pointer;
     margin-top: 1rem;
     transition: background-color 0.3s;
+    ${BodyFont}
 
     //HOVER SEARCH
     &:hover {

@@ -37,6 +37,16 @@ const mockMovieDetails = {
     'https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_SX300.jpg',
 };
 
+//MOCK DO USENAVIGATE PARA IR BUSCAR O TITLE
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
+
+//COMPORTAMENTO MOCK
+const mockNavigate = jest.fn();
+require('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
+
 // NO COMPONENTE PRINCIPAL
 describe('SearchPage', () => {
   // LIMPA OS MOCKS ANTES DE COMEÇAR
@@ -62,41 +72,50 @@ describe('SearchPage', () => {
 
   //------------------------------------------------------------------------------------------------------
 
-  // RENDER DE LISTA COM FILTROS
-  test('Render de SearchPage e FilterResults - Pesquisar John Wick', () => {
-    //QUERY
+  //SIMULA NAVEGAÇÃO
+  test('Navigate é chamado com filtros corretos', () => {
     const { useFetchMoviesQuery } = require('../src/reduxStore/omdbSlice.js');
 
-    //MOCK RESPOSTA
+    //CHAMA AQUERY MOCKED
     useFetchMoviesQuery.mockReturnValue({
       data: { Search: [mockMovieDetails] },
       error: null,
       isLoading: false,
     });
 
-    // RENDER DE APP
+    //SIMULA NAVEGAÇÃO
+    const mockNavigate = jest.fn();
+    require('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
+
+    //RENDER
     render(
       <Router>
         <SearchPage />
       </Router>,
     );
 
-    //SIMULAR A MUDANÇADO INPUT PARA JOHN WICK
+    //SIMULA PESQUISA
     fireEvent.change(screen.getByPlaceholderText('Nome'), {
       target: { value: 'John Wick' },
     });
 
-    // SIMULA CLIQUE DE PROCURA
+    //CLICA PESQUISAR
     fireEvent.click(screen.getByText('Procurar'));
 
-    // VERIFICA SE O TÍTULO LÁ ESTÁ
-    expect(screen.getByText('John Wick')).toBeInTheDocument();
+    //Vê SE O NAVIGATE FOI CHAMADO COM OS VALOR CORRETO
+    expect(mockNavigate).toHaveBeenCalledWith('/results', {
+      state: { filters: { title: 'John Wick', year: '', plot: 'short' } },
+    });
   });
 
   //------------------------------------------------------------------------------------------------------
   test('Renderizar o SearchPage - Ver se tem os inputs esperados', () => {
     //RENDER APP
-    render(<SearchPage />);
+    render(
+      <Router>
+        <SearchPage />
+      </Router>,
+    );
 
     // INPUTS
     const nome = screen.getByPlaceholderText('Nome');
@@ -112,7 +131,11 @@ describe('SearchPage', () => {
   //------------------------------------------------------------------------------------------------------
   test('Render SearchPage - Ver se o Botão de Procurar está ligado', () => {
     //RENDER
-    render(<SearchPage />);
+    render(
+      <Router>
+        <SearchPage />
+      </Router>,
+    );
 
     const procurarButton = screen.getByText('Procurar');
     expect(procurarButton).toBeEnabled();
