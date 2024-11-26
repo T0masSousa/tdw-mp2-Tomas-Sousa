@@ -104,7 +104,9 @@ export default function ListResults({ filters }) {
       </ListResultsParagraph>
       <ListResultsFiltersContainer>
         <ListResultsFilter>
-          <label>Ordenação</label>
+          <label>
+            <b>Ordenação</b>
+          </label>
           <select value={order} onChange={(e) => setOrder(e.target.value)}>
             <option value="title-asc">Nome (A-Z)</option>
             <option value="title-desc">Nome (Z-A)</option>
@@ -117,7 +119,9 @@ export default function ListResults({ filters }) {
           </select>
         </ListResultsFilter>
         <ListResultsFilter>
-          <label>Filtrar por Tipo </label>
+          <label>
+            <b>Tipo</b>
+          </label>
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}

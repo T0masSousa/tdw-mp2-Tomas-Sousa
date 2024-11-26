@@ -169,7 +169,7 @@ const HomeStatic = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Vercel
+          <b>Vercel</b>
         </HomeLink>
       </HomeParagraphCentered>
     </HomeContainer>

@@ -69,10 +69,16 @@ export const GlobalStyles = createGlobalStyle`
 //LOADER CENTRADO
 export const LoaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+`;
+
+//LOADER H1
+export const LoaderH1 = styled.h1`
+  color: #0056b3;
 `;
 
 //CONTAINER ERRO
@@ -186,50 +192,33 @@ export const NavbarStyled = styled.nav`
   border-bottom: solid 0.25rem #e6e6e6;
 `;
 
-//ANIMACAO CâMARA NAVBAR
-const cameraAnimation = keyframes`
+//ANIMAÇÃO NAVBAR
+const shakeAnimation = keyframes`
   0%, 100% {
-    transform: rotate(0deg);
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
   }
   50% {
-    transform: rotate(20deg);
+    transform: translateX(2px);
   }
-`;
-
-//ANIMACAO SEARCH NAVBAR
-const searchAnimation = keyframes`
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
+  75% {
+    transform: translateX(-2px);
   }
 `;
 
 //LINKS NAVBAR
-export const NavbarItemMovie = styled(Link)`
+export const NavbarItem = styled(Link)`
   color: #fff;
   text-decoration: none;
   padding: 0 1rem;
 
   &:hover {
-    animation: ${cameraAnimation} 1s infinite;
+    animation: ${shakeAnimation} 0.5s ease;
     color: #007bff;
   }
 `;
-
-//SEARCH NAVBAR
-export const NavbarItemSearch = styled(Link)`
-  color: #fff;
-  text-decoration: none;
-  padding: 0 1rem;
-
-  &:hover {
-    animation: ${searchAnimation} 1s infinite;
-    color: #007bff;
-  }
-`;
-
 //-----------------------------------------HOMEPAGE------------------------------------------------------
 
 //STATIC CONTENT HOMEPAGE
@@ -406,6 +395,8 @@ export const FormSearch = styled.form`
 
     //HOVER SEARCH
     &:hover {
+      transition: transform 0.5s ease;
+      transform: scale(1.1);
       background-color: #004494;
     }
   }
@@ -424,8 +415,9 @@ export const ListResultsParagraph = styled.p`
 //LIST RESULTS FILTER CONTAINER
 export const ListResultsFiltersContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 2.5rem;
+  padding: 0 2rem;
 `;
 
 //CADA FILTRO
@@ -513,6 +505,8 @@ export const ListResultsButtonCards = styled(Link)`
 
   //HOVER SEARCH
   &:hover {
+    transition: transform 0.5s ease;
+    transform: scale(1.1);
     background-color: #004494;
   }
 `;

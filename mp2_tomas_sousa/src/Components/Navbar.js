@@ -1,12 +1,9 @@
 import React from 'react';
 
 //STYLES
-import {
-  NavbarStyled,
-  NavbarItemMovie,
-  NavbarItemSearch,
-} from '../Styles/GlobalStyles.js';
+import { NavbarStyled, NavbarItem } from '../Styles/GlobalStyles.js';
 
+//ICONES
 import { MovieIcon } from '../Styles/GlobalStyles.js';
 import { SearchIcon } from '../Styles/GlobalStyles.js';
 
@@ -14,14 +11,14 @@ import { SearchIcon } from '../Styles/GlobalStyles.js';
 const Navbar = () => {
   return (
     <NavbarStyled>
-      <NavbarItemMovie to="/">
+      <NavbarItem to="/">
         <MovieIcon />
         Movie Time
-      </NavbarItemMovie>
-      <NavbarItemSearch to="/search">
+      </NavbarItem>
+      <NavbarItem to="/search">
         <SearchIcon />
         Pesquisar
-      </NavbarItemSearch>
+      </NavbarItem>
     </NavbarStyled>
   );
 };
