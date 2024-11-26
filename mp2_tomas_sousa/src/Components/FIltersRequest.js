@@ -87,6 +87,7 @@ export default function FiltersRequest() {
               id="plot"
               value={plot}
               onChange={(e) => SetPlot(e.target.value)}
+              placeholder="Plot"
             >
               <option value=""></option>
               <option value="short">Curto</option>
