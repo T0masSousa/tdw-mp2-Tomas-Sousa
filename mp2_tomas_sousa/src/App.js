@@ -6,10 +6,12 @@ import Navbar from './Components/Navbar.js';
 import HomePage from './Pages/HomePage.js';
 import SearchPage from './Pages/SearchPage.js';
 import ResultDetailsPage from './Pages/ResultDetailsPage.js';
+import ResultsPage from './Pages/ResultsPage.js';
 
-// ESTILO
+// ESTILO GLOBAL
 import { GlobalStyles } from './Styles/GlobalStyles.js';
 
+//ROUTING
 function App() {
   return (
     <Router>
@@ -18,7 +20,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/film/:title" element={<ResultDetailsPage />} />
+        <Route path="/details/:title" element={<ResultDetailsPage />} />
+        <Route path="/results" element={<ResultsPage />}></Route>
       </Routes>
     </Router>
   );

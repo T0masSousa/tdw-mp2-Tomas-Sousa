@@ -3,6 +3,27 @@ import { useParams } from 'react-router';
 import { useFetchMovieDetailsQuery } from '../reduxStore/omdbSlice.js';
 import { useFetchTrailerQuery } from '../reduxStore/youtubeDataSlice.js';
 
+//ESTRELAS
+import StarsRating from './StarsRating.js';
+
+//ESTILOS
+import {
+  DetailsCardContainer,
+  DetailsImageContainer,
+  DetailsContainer,
+  DetailsMovieImage,
+  DetailsMovieInfo,
+  DetailsMovieTitle,
+  DetailsTrailerContainer,
+  DetailsTrailerTitle,
+  ErrorContainer,
+  ErrorMessage,
+  ListResultsButtonCards,
+} from '../Styles/GlobalStyles.js';
+
+//LOADER
+import { DefaultLoader } from './DefaultLoader.js';
+
 // DETALHES
 const ResultDetails = () => {
   //TÍTULO
@@ -23,45 +44,65 @@ const ResultDetails = () => {
   } = useFetchTrailerQuery(title);
 
   // CARREGAR
-  if (movieLoading || trailerLoading) return <div>A Carregar...</div>;
+  if (movieLoading || trailerLoading) {
+    return <DefaultLoader />;
+  }
 
-  //ERRO
-  if (movieError) return <div>Erro a carregar detalhes.</div>;
+  //SE NÃO HOUVER TRAILER OU NÃO HOUVER DETALHES OMBD
+  if (trailerError || movieError) {
+    return (
+      <ErrorContainer>
+        <ErrorMessage>
+          Erro a carregar conteúdo, por favor, tenta novamente.
+        </ErrorMessage>
+        <ListResultsButtonCards to="/search">Voltar</ListResultsButtonCards>
+      </ErrorContainer>
+    );
+  }
 
-  //ERRO YT
-  if (trailerError) return <div>Erro a carregar trailer.</div>;
-
+  //DADOS RECEBIDOS YOUTUBE
   const trailer = trailerData?.items[0];
 
   return (
-    <div>
-      <h1>{movieDetails.Title}</h1>
-      <p>{movieDetails.Plot}</p>
-      <p>Ano: {movieDetails.Year}</p>
-      <p>Género: {movieDetails.Genre}</p>
-      <p>Diretor: {movieDetails.Director}</p>
-      <p>Atores: {movieDetails.Actors}</p>
-      <p>Avaliação IMDB: {movieDetails.imdbRating}</p>
-      <img
-        src={movieDetails.Poster}
-        alt={movieDetails.Title}
-        style={{ width: '150px' }}
-      />
-      {trailer && (
-        <div>
-          <h2>Trailer</h2>
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${trailer.id.videoId}`}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-      )}
-    </div>
+    <DetailsCardContainer>
+      <DetailsImageContainer>
+        <DetailsMovieImage src={movieDetails.Poster} alt={movieDetails.Title} />
+      </DetailsImageContainer>
+      <DetailsContainer>
+        <DetailsMovieTitle>{movieDetails.Title}</DetailsMovieTitle>
+        <DetailsMovieInfo>{movieDetails.Plot}</DetailsMovieInfo>
+        <DetailsMovieInfo>
+          <b>Ano</b>: {movieDetails.Year}
+        </DetailsMovieInfo>
+        <DetailsMovieInfo>
+          <b>Género</b>: {movieDetails.Genre}
+        </DetailsMovieInfo>
+        <DetailsMovieInfo>
+          <b>Diretor</b>: {movieDetails.Director}
+        </DetailsMovieInfo>
+        <DetailsMovieInfo>
+          <b>Atores</b>: {movieDetails.Actors}
+        </DetailsMovieInfo>
+        <DetailsMovieInfo>
+          <b>Avaliação IMDB</b>: {movieDetails.imdbRating}
+          <StarsRating rating={movieDetails.imdbRating} />
+        </DetailsMovieInfo>
+        {trailer && (
+          <DetailsTrailerContainer>
+            <DetailsTrailerTitle>Trailer</DetailsTrailerTitle>
+            <iframe
+              width="400"
+              height="250"
+              src={`https://www.youtube.com/embed/${trailer.id.videoId}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </DetailsTrailerContainer>
+        )}
+      </DetailsContainer>
+    </DetailsCardContainer>
   );
 };
 

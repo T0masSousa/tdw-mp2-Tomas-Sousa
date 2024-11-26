@@ -1,8 +1,8 @@
 import React from 'react';
-import Search from '../Components/Search.js';
+import FiltersRequest from '../Components/FIltersRequest.js';
 
 const SearchPage = () => {
-  return <Search />;
+  return <FiltersRequest />;
 };
 
 export default SearchPage;

@@ -5,6 +5,7 @@ import {
   HomeContainer,
   HomeTitle,
   HomeParagraph,
+  HomeParagraphCentered,
   HomeSectionTitle,
   HomeSectionTitle2,
   HomeList,
@@ -161,6 +162,16 @@ const HomeStatic = () => {
           </HomeLink>
         </HomeListItem>
       </HomeList>
+      <HomeParagraphCentered>
+        Hosted on{' '}
+        <HomeLink
+          href="https://vercel.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Vercel
+        </HomeLink>
+      </HomeParagraphCentered>
     </HomeContainer>
   );
 };

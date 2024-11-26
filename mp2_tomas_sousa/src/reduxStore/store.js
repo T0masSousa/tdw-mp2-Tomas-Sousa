@@ -5,14 +5,14 @@ import { youtubeSlice } from './youtubeDataSlice.js';
 //CONFIG DA STORE DO REDUX
 const store = configureStore({
   reducer: {
-    // REDUCER FILMES COM PESQUISA S E T
+    //REDUCER FILMES COM PESQUISA SEARCH PARA OS GERAIS E TITLE PARA OS DETALHES
     [omdbSlice.reducerPath]: omdbSlice.reducer,
 
-    // REDUCER YOUTUBE
+    //REDUCER YOUTUBE
     [youtubeSlice.reducerPath]: youtubeSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    // MIDDLEWARE
+    //MIDDLEWARE
     getDefaultMiddleware().concat(
       omdbSlice.middleware,
       youtubeSlice.middleware,

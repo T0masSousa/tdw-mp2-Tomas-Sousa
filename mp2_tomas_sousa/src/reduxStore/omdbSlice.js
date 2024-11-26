@@ -1,31 +1,32 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// Local Env Key
+//CHAVE API
 const apiKey = process.env.REACT_APP_OMDB_API_KEY;
 
+//SLICE
 export const omdbSlice = createApi({
-  // Reducer name
+  //NOME REDUCER
   reducerPath: 'omdbApi',
 
-  // Request
+  //PEDIDO A FAZER
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://www.omdbapi.com/',
   }),
   endpoints: (builder) => ({
-    // PARA OS CARDS
+    //PARA OS CARDS
     fetchMovies: builder.query({
-      // title by name (Required), year (optional), result type (movie, series, episode - OPTIONAL), data type returned JSON or XML, number of pages to return
+      //REQUER TITULO E PODE LEVAR COMO OPÇÃO O ANO, TIPO, TIPO DE DADOS E NÚMERO DE PÁGINAS QUE RETORNA
       query: ({ title, year, type, plot }) =>
         `?s=${title}&y=${year}&plot=${plot}&r=json&apikey=${apiKey}`,
     }),
 
-    // PARA OS DETALHES
+    //PARA OS DETALHES DE UM FILME
     fetchMovieDetails: builder.query({
-      // title by name (Required), year (optional), result type (movie, series, episode - OPTIONAL), data type returned JSON or XML, number of pages to return
+      //REQUER TITULO E PODE LEVAR COMO OPÇÃO O ANO, TIPO, TIPO DE DADOS E NÚMERO DE PÁGINAS QUE RETORNA
       query: (title) => `?t=${title}&plot=full&r=json&apikey=${apiKey}`,
     }),
   }),
 });
 
-// Query que os outros ficheiro vão usar
+//EXPORTAR QUERIES PARA OS OUTROS FICHEIROS CHAMAREM
 export const { useFetchMoviesQuery, useFetchMovieDetailsQuery } = omdbSlice;

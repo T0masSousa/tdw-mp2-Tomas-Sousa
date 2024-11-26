@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// CHAVE YOUTUBE DATA
+//CHAVE YOUTUBE DATA
 const youtubeApiKey = process.env.REACT_APP_YOUTUBE_DATA_API_KEY;
 
 export const youtubeSlice = createApi({
   //NOME REDUCER
   reducerPath: 'youtubeApi',
 
+  //QUERY A FAZER
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://www.googleapis.com/youtube/v3/',
   }),
@@ -20,4 +21,5 @@ export const youtubeSlice = createApi({
   }),
 });
 
+//HOOK QUE DETALHES USA
 export const { useFetchTrailerQuery } = youtubeSlice;

@@ -1,10 +1,32 @@
 // Usa a QUERY
 import { useFetchMoviesQuery } from '../reduxStore/omdbSlice.js';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+
+//STYLES
+import {
+  ListResultsCard,
+  ListResultsContainer,
+  ListResultsFilter,
+  ListResultsMovieImage,
+  ListResultsMovieInfo,
+  ListResultsMovieTitle,
+  ListResultsParagraph,
+  ListResultsResultsContainer,
+  ListResultsFiltersContainer,
+  ListResultsMovieImageContainer,
+  ListResultsButtonCards,
+  ListResultsFeedbackP,
+  ErrorContainer,
+  ErrorMessage,
+  HomeTitle,
+} from '../Styles/GlobalStyles.js';
+
+//LOADER
+import { DefaultLoader } from './DefaultLoader.js';
 
 // PAGE
 export default function ListResults({ filters }) {
+  //VALORES A LISTAR || PEDIDO
   const {
     data: movies,
     error,
@@ -16,7 +38,7 @@ export default function ListResults({ filters }) {
     plot: filters.plot,
   });
 
-  //STATE PARA ORDERM
+  //STATES PARA ORDENAR
   const [order, setOrder] = useState('title-asc');
   const [typeFilter, setTypeFilter] = useState('');
   const [sortedMovies, setSortedMovies] = useState([]);
@@ -57,60 +79,91 @@ export default function ListResults({ filters }) {
     }
   }, [movies, order, typeFilter]); //DEPENDE DAS ESCOLHAS DO UTILIZADOR E AINDA DA NOVA PESQUISA
 
+  //LOADING
   if (isLoading) {
-    return <div>A Carregar...</div>;
+    return <DefaultLoader />;
   }
 
+  //MENSAGEM DE ERRO
   if (error) {
-    return <div>Erro a carregar filmes.</div>;
+    return (
+      <ErrorContainer>
+        <ErrorMessage>
+          Erro a carregar conteúdo, por favor, tenta novamente.
+        </ErrorMessage>
+        <ListResultsButtonCards to="/search">Voltar</ListResultsButtonCards>
+      </ErrorContainer>
+    );
   }
 
   return (
-    <>
-      <div>
-        <label>Ordenação</label>
-        <select value={order} onChange={(e) => setOrder(e.target.value)}>
-          <option value="title-asc">Nome (A-Z)</option>
-          <option value="title-desc">Nome (Z-A)</option>
-          <option value="year-asc">Ano (Mais Antigo para Mais Recente)</option>
-          <option value="year-desc">Ano (Mais Recente para Mais Antigo)</option>
-        </select>
-      </div>
-      <div>
-        <label>Filtrar por Tipo </label>
-        <select
-          value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value)}
-        >
-          <option value="">Todos</option>
-          <option value="movie">Filme</option>
-          <option value="series">Série</option>
-          <option value="episode">Episódio</option>
-          <option value="game">Jogo</option>
-        </select>
-      </div>
-      {sortedMovies.length === 0 ? (
-        <div>Nenhum resultado desta categoria.</div>
-      ) : (
-        sortedMovies.map((movie, index) => (
-          <div
-            key={movie.imdbID || index}
-            style={{ margin: '10px', display: 'flex' }}
+    <ListResultsContainer>
+      <HomeTitle>Resultados da Pesquisa</HomeTitle>
+      <ListResultsParagraph>
+        Aqui estão os resultados da tua pesquisa.
+      </ListResultsParagraph>
+      <ListResultsFiltersContainer>
+        <ListResultsFilter>
+          <label>Ordenação</label>
+          <select value={order} onChange={(e) => setOrder(e.target.value)}>
+            <option value="title-asc">Nome (A-Z)</option>
+            <option value="title-desc">Nome (Z-A)</option>
+            <option value="year-asc">
+              Ano (Mais Antigo para Mais Recente)
+            </option>
+            <option value="year-desc">
+              Ano (Mais Recente para Mais Antigo)
+            </option>
+          </select>
+        </ListResultsFilter>
+        <ListResultsFilter>
+          <label>Filtrar por Tipo </label>
+          <select
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
           >
-            <img
-              src={movie.Poster}
-              alt={movie.Title}
-              style={{ width: '150px' }}
-            />
-            <div>
-              <h5>{movie.Title}</h5>
-              <p>Release: {movie.Year}</p>
-              <p>Type: {movie.Type}</p>
-              <Link to={`/film/${movie.Title}`}>Ver Detalhes</Link>
-            </div>
-          </div>
-        ))
+            <option value="">Todos</option>
+            <option value="movie">Filme</option>
+            <option value="series">Série</option>
+            <option value="episode">Episódio</option>
+            <option value="game">Jogo</option>
+          </select>
+        </ListResultsFilter>
+      </ListResultsFiltersContainer>
+      {sortedMovies.length === 0 ? (
+        <ListResultsFeedbackP>
+          Nenhum resultado desta categoria.
+        </ListResultsFeedbackP>
+      ) : (
+        <ListResultsResultsContainer>
+          {sortedMovies.map((movie, index) => (
+            <ListResultsCard key={movie.imdbID || index}>
+              <ListResultsMovieImageContainer>
+                <ListResultsMovieImage src={movie.Poster} alt={movie.Title} />
+              </ListResultsMovieImageContainer>
+              <ListResultsMovieTitle>{movie.Title}</ListResultsMovieTitle>
+              <ListResultsMovieInfo>
+                <b>Lançamento </b>: {movie.Year}
+              </ListResultsMovieInfo>
+              <ListResultsMovieInfo>
+                <b>Tipo</b>:{' '}
+                {movie.Type === 'movie'
+                  ? 'Filme'
+                  : movie.Type === 'series'
+                    ? 'Série'
+                    : movie.Type === 'episode'
+                      ? 'Episódio'
+                      : movie.Type === 'game'
+                        ? 'Jogo'
+                        : movie.Type}
+              </ListResultsMovieInfo>
+              <ListResultsButtonCards to={`/details/${movie.Title}`}>
+                Detalhes
+              </ListResultsButtonCards>
+            </ListResultsCard>
+          ))}
+        </ListResultsResultsContainer>
       )}
-    </>
+    </ListResultsContainer>
   );
 }

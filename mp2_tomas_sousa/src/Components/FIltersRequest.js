@@ -1,6 +1,9 @@
 // Usestate
 import { useState } from 'react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+//STYLES
 import {
   CardSearch,
   FormSearch,
@@ -10,7 +13,7 @@ import {
   ErrorSearch,
 } from '../Styles/GlobalStyles.js';
 
-export default function FiltersRequest({ onFilterChange }) {
+export default function FiltersRequest() {
   // Pesquisa
   const [title, settitle] = useState(''); //Obrigatorio NOME FILME
   const [year, setYear] = useState(''); //Opcional ANO FILME
@@ -19,11 +22,15 @@ export default function FiltersRequest({ onFilterChange }) {
   //MENSAGEM
   const [feedback, setFeedback] = useState('');
 
+  //HISTORY
+  const Navigate = useNavigate();
+
   // FORM PARA PEDIDO
   const handleFormSubmit = (e) => {
     // NAO SUBMETER VAZIO
     e.preventDefault();
 
+    //SE TENTAR PESQUISAR SEM NOME || É LIMITAÇÃO DA API
     if (!title) {
       // FALTA NOME
       setFeedback('Por favor, insire o nome do conteúdo que procuras.');
@@ -38,8 +45,8 @@ export default function FiltersRequest({ onFilterChange }) {
         plot,
       };
 
-      // CALLBACK QUE LEVA FILTROS
-      onFilterChange(filters);
+      //MANDA O TITLE NO STATE DO NAVIAGTE PARA IR PARA OUTRA PÁGINA VER OS RESULTADOS
+      Navigate('/results', { state: { filters } });
     }
   };
 
@@ -50,7 +57,7 @@ export default function FiltersRequest({ onFilterChange }) {
         <ParagraphSearch>
           Para pesquisar tens de introduzir o{' '}
           <b>nome do conteúdo que procuras</b> e, opcionalmente, poderás
-          contribuir com mais informações. No final, clica em "procurar".
+          contribuir com mais informações. No final, clica em "<b>procurar</b>".
         </ParagraphSearch>
         <ErrorSearch>{feedback}</ErrorSearch>
         <FormSearch>

@@ -1,12 +1,16 @@
 import React from 'react';
+
+//STYLES
 import {
   NavbarStyled,
   NavbarItemMovie,
   NavbarItemSearch,
 } from '../Styles/GlobalStyles.js';
+
 import { MovieIcon } from '../Styles/GlobalStyles.js';
 import { SearchIcon } from '../Styles/GlobalStyles.js';
 
+//NAVBAR
 const Navbar = () => {
   return (
     <NavbarStyled>
