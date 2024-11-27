@@ -62,7 +62,7 @@ export default function FiltersRequest() {
         <ErrorSearch>{feedback}</ErrorSearch>
         <FormSearch>
           <label htmlFor="title">
-            Nome
+            <b>Nome</b>
             <input
               id="title"
               type="text"
@@ -72,7 +72,7 @@ export default function FiltersRequest() {
             />
           </label>
           <label htmlFor="year">
-            Ano
+            <b>Ano</b>
             <input
               id="year"
               type="number"
@@ -82,7 +82,7 @@ export default function FiltersRequest() {
             />
           </label>
           <label htmlFor="plot">
-            Plot
+            <b>Plot</b>
             <select
               id="plot"
               value={plot}

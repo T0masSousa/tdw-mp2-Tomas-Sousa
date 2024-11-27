@@ -216,7 +216,7 @@ export const NavbarItem = styled(Link)`
 
   &:hover {
     animation: ${shakeAnimation} 0.5s ease;
-    color: #007bff;
+    color: #00ceff;
   }
 `;
 //-----------------------------------------HOMEPAGE------------------------------------------------------
