@@ -28,8 +28,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Verificar Cache Hit
+        run: |
+          echo "Cache hit: ${{ steps.cache-npm.outputs.cache-hit }}"
+
       - name: Instalar Modulos If Cache Not Found
         if: steps.cache-npm.outputs.cache-hit != 'true'
+
         run: npm install
         working-directory: ./mp2_tomas_sousa
 
