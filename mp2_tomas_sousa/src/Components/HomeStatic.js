@@ -41,7 +41,7 @@ const HomeStatic = () => {
         diretamente na plataforma.
       </HomeParagraph>
       <HomeSectionTitle>Tech Stack</HomeSectionTitle>
-      <HomeSectionTitle2>Framework Frontend</HomeSectionTitle2>
+      <HomeSectionTitle2>Framework Front-end</HomeSectionTitle2>
       <HomeList>
         <HomeListItem>
           <HomeLink
