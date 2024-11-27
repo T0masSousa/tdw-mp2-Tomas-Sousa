@@ -23,7 +23,7 @@ jobs:
         id: cache-npm
         uses: actions/cache@v4
         with:
-          path: ~/.npm # O que vai para cache
+          path: ./mp2_tomas_sousa/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
