@@ -23,7 +23,7 @@ jobs:
         id: cache-npm
         uses: actions/cache@v4
         with:
-          path: ~/.npm # O que vai para cache
+          path: ./mp2_tomas_sousa/node_modules # O que vai para cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
@@ -68,18 +68,14 @@ jobs:
         id: cache-npm-vercel-preview
         uses: actions/cache@v4
         with:
-          path: ~/.npm # O que vai para cache
+          path: ./mp2_tomas_sousa/node_modules # O que vai para cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Instalar Modulos If Cache Not Found
         if: steps.cache-npm-vercel-preview.outputs.cache-hit != 'true'
-        run: npm install
-        working-directory: ./mp2_tomas_sousa
-
-      - name: Instalar CLI da Vercel
-        run: npm install --global vercel@latest
+        run: npm install --global verce@latest
         working-directory: ./mp2_tomas_sousa
 
       - name: Pull Env Vercel
@@ -111,18 +107,14 @@ jobs:
         id: cache-npm-vercel-production
         uses: actions/cache@v4
         with:
-          path: ~/.npm # O que vai para cache
+          path: ./mp2_tomas_sousa/node_modules # O que vai para cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Instalar Modulos If Cache Not Found
         if: steps.cache-npm-vercel-production.outputs.cache-hit != 'true'
-        run: npm install
-        working-directory: ./mp2_tomas_sousa
-
-      - name: Instalar CLI da Vercel
-        run: npm install --global vercel@latest
+        run: npm install --global @vercel@latest
         working-directory: ./mp2_tomas_sousa
 
       - name: Pull Env Vercel
