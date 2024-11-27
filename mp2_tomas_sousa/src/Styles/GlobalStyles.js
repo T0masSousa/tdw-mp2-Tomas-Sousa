@@ -489,6 +489,13 @@ export const ListResultsMovieInfo = styled.p`
   text-align: start;
 `;
 
+//CENTERED FEEDBACK
+export const ListResultsMovieInfo2 = styled.p`
+  margin: 0.5rem 0;
+  text-align: center;
+  color: red;
+`;
+
 //BUTTON CARDS
 export const ListResultsButtonCards = styled(Link)`
   text-align: center;

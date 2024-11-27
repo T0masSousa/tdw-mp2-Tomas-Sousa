@@ -16,6 +16,7 @@ import {
   ListResultsMovieImageContainer,
   ListResultsButtonCards,
   ListResultsFeedbackP,
+  ListResultsMovieInfo2,
   ErrorContainer,
   ErrorMessage,
   HomeTitle,
@@ -161,9 +162,16 @@ export default function ListResults({ filters }) {
                         ? 'Jogo'
                         : movie.Type}
               </ListResultsMovieInfo>
-              <ListResultsButtonCards to={`/details/${movie.Title}`}>
-                Detalhes
-              </ListResultsButtonCards>
+              {movie.Type !== 'game' && (
+                <ListResultsButtonCards to={`/details/${movie.Title}`}>
+                  Ver Detalhes
+                </ListResultsButtonCards>
+              )}
+              {movie.Type === 'game' && (
+                <ListResultsMovieInfo2>
+                  <b>Não Disponível</b>
+                </ListResultsMovieInfo2>
+              )}
             </ListResultsCard>
           ))}
         </ListResultsResultsContainer>
