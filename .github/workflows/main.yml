@@ -23,7 +23,7 @@ jobs:
         id: cache-npm
         uses: actions/cache@v4
         with:
-          path: ./mp2_tomas_sousa/node_modules
+          path: ~/.npm # O que vai para cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
@@ -40,8 +40,7 @@ jobs:
 
       - name: Lint
         run: npm run lint
-        working-directory: ./mp2_tomas_sousa
-
+        working-directory: ~/.npm
       - name: Prettier
         run: npm run prettier
         working-directory: ./mp2_tomas_sousa
