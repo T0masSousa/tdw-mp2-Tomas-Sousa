@@ -44,4 +44,4 @@ pnpm dev
 
 - [@T0masSousa](https://github.com/T0masSousa)
 
-Hosted on Vercel(https://vercel.com/)
+Hosted on [Vercel](https://vercel.com/)
