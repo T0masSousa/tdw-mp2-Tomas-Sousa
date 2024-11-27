@@ -1,16 +1,13 @@
-# Nome da Pipeline
-name: Miniprojeto2_Tomas_Sousa
+name: CI/CD Pipeline
 
-# Ocasioes em que o workflow comeca a trabalhar
 on:
-  push: # Em qualquer commit para ca feito em main
+  push: # Em qualquer commit para a branch main
     branches:
       - main
-  pull_request: # Em qualquer pull request para a main
+  pull_request: # Em qualquer pull request para a branch main
     branches:
       - main
 
-# Jobs a ser executados
 jobs:
   cache-e-steps:
     name: Criar Cache e Executar Lint, Prettier, Jest e Codecov com Relatório
@@ -26,8 +23,8 @@ jobs:
         id: cache-npm
         uses: actions/cache@v4
         with:
-          path: node_modules # O que vai para cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Buiçd
+          path: ~/.npm # O que vai para cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -45,32 +42,36 @@ jobs:
         working-directory: ./mp2_tomas_sousa
 
       - name: Jest
-        run: npm run test
+        run: npm test -- --coverage
         working-directory: ./mp2_tomas_sousa
 
-      - name: Coverage
-        run: npm run coverage
-        working-directory: ./mp2_tomas_sousa
-
-      - name: Upload dos Resultados para o Codecov
-        uses: codecov/codecov-action@v4
+      - name: Codecov
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./mp2_tomas_sousa/coverage/coverage-final.json
+          files: ./mp2_tomas_sousa/coverage/*.json
           flags: unittests
           name: codecov-umbrella
-          fail_ci_if_error: true
 
   deploy-vercel-preview:
     name: Deploy do Vercel em Preview
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    needs: cache-e-steps
     runs-on: ubuntu-latest
+    needs: cache-e-steps
     steps:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
+
+      - name: Configurar Cache do Node.js
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar Dependências
+        run: npm install
+        working-directory: ./mp2_tomas_sousa
 
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
@@ -101,6 +102,18 @@ jobs:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
 
+      - name: Configurar Cache do Node.js
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar Dependências
+        run: npm install
+        working-directory: ./mp2_tomas_sousa
+
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
         working-directory: ./mp2_tomas_sousa
@@ -112,9 +125,9 @@ jobs:
       - name: Build Vercel
         run: |
           vercel pull --yes --environment=production --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
-          vercel build --prod --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
+          vercel build --token=${{ secrets.VERCEL_ACCESS_TOKEN}}
         working-directory: ./mp2_tomas_sousa
 
       - name: Deploy Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
         working-directory: ./mp2_tomas_sousa
