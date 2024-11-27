@@ -38,7 +38,7 @@ pnpm dev
 - **[Reduxjs](https://redux.js.org/)**
 - **[RTKQuery](https://redux-toolkit.js.org/rtk-query/overview)**
 - **[Styled Components](https://styled-components.com/)**
-- **[ReactIcons](https://react-icons.github.io/react-icons/)**
+- **[React Icons](https://react-icons.github.io/react-icons/)**
 
 ## 👥 Author
 
