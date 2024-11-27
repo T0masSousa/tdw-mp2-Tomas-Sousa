@@ -1,16 +1,13 @@
-# Nome da Pipeline
 name: Miniprojeto2_Tomas_Sousa
 
-# Ocasioes em que o workflow comeca a trabalhar
 on:
-  push: # Em qualquer commit para ca feito em main
+  push: # Em qualquer commit para a branch main
     branches:
       - main
-  pull_request: # Em qualquer pull request para a main
+  pull_request: # Em qualquer pull request para a branch main
     branches:
       - main
 
-# Jobs a ser executados
 jobs:
   cache-e-steps:
     name: Criar Cache e Executar Lint, Prettier, Jest e Codecov com Relatório
@@ -26,8 +23,8 @@ jobs:
         id: cache-npm
         uses: actions/cache@v4
         with:
-          path: ./mp2_tomas_sousa/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} #Nome da Cache e Build
+          path: ~/.npm # O que vai para cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -45,7 +42,7 @@ jobs:
         working-directory: ./mp2_tomas_sousa
 
       - name: Jest
-        run: npm run coverage
+        run: npm test -- --coverage
         working-directory: ./mp2_tomas_sousa
 
       - name: Upload dos Resultados para o Codecov
@@ -66,6 +63,20 @@ jobs:
     steps:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
+
+      - name: Cache dos modulos do NPM
+        id: cache-npm-vercel-preview
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm # O que vai para cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar Modulos If Cache Not Found
+        if: steps.cache-npm-vercel-preview.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: ./mp2_tomas_sousa
 
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
@@ -95,6 +106,20 @@ jobs:
     steps:
       - name: Analisar Repositorio
         uses: actions/checkout@v4
+
+      - name: Cache dos modulos do NPM
+        id: cache-npm-vercel-production
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm # O que vai para cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Nome da Cache e Build
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar Modulos If Cache Not Found
+        if: steps.cache-npm-vercel-production.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: ./mp2_tomas_sousa
 
       - name: Instalar CLI da Vercel
         run: npm install --global vercel@latest
